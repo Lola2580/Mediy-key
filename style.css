@@ -125,7 +125,16 @@ body{
   gap:20px;
   flex-wrap:wrap;
 }
-
+.primary-btn2:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 25px #7d5cff;
+}
+.primary-btn2{
+   cursor:pointer;
+   border-radius:15px;
+   border:none;
+   transition:0.3s;
+}
 .primary-btn,
 .secondary-btn{
   padding:16px 30px;
