@@ -95,36 +95,52 @@ body{
 }
 
 .hero-content{
-  position:relative;
-  z-index:2;
-  max-width:700px;
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* horizontal center */
+  justify-content: center; /* vertical center */
 }
 
 .badge{
   display:inline-block;
-  padding:12px 25px;
+  padding:12px 15px;
   background:#18102c;
   border:1px solid #7d5cff;
   border-radius:40px;
-  margin-bottom:30px;
+  margin-bottom:10px;
   color:#c9b7ff;
+  justify-content:space-between;
 }
 
 .hero h1{
-  font-size:72px;
+  font-size:65px;
   line-height:1.1;
   margin-bottom:25px;
   font-weight:800;
+  text-align:center;
 }
 
 .hero span{
   color:#7d5cff;
+  font-size:40px;
+   font-weight:600;
 }
 
 .hero p{
   font-size:22px;
   color:#c5c5c5;
   margin-bottom:35px;
+}
+.hero h1,
+.hero h2,
+.hero p{
+  text-align:center;
 }
 
 .hero-buttons{
