@@ -134,6 +134,8 @@ body{
    border-radius:15px;
    border:none;
    transition:0.3s;
+  padding:16px 30px;
+  font-size:10px;
 }
 .primary-btn,
 .secondary-btn{
@@ -146,6 +148,10 @@ body{
 }
 
 .primary-btn{
+  background:linear-gradient(45deg,#6f3cff,#9b5cff);
+  color:white;
+}
+.primary-btn2{
   background:linear-gradient(45deg,#6f3cff,#9b5cff);
   color:white;
 }
