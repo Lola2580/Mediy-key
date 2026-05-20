@@ -134,8 +134,7 @@ body{
    border-radius:15px;
    border:none;
    transition:0.3s;
-  padding:16px 30px;
-  font-size:10px;
+  font-size:15px;
 }
 .primary-btn,
 .secondary-btn{
