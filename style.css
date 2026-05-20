@@ -17,12 +17,12 @@ body{
 
 .navbar{
   width:90%;
-  padding:10px 3%;
+  padding:10px 2%;
   display:flex;
   justify-content:space-between;
   align-items:center;
   position:fixed;
-  top:0;
+  top:20px;
   z-index:1000;
   background:rgba(138,151,149,0.35);
   backdrop-filter:blur(10px);
