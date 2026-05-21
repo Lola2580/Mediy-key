@@ -1,19 +1,29 @@
 /* =========================
-   DOM ELEMENTS
+   SAFE DOM SELECTORS
 ========================= */
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 
-const bookBtn = document.getElementById("bookBtn");
-const freeCallBtn = document.getElementById("freeCallBtn");
-const bookingSection = document.getElementById("book-call");
 const servicesBtn = document.getElementById("servicesBtn");
 const aboutBtn = document.getElementById("aboutBtn");
+const bookBtns = document.querySelectorAll(".primary-btn2, .book-btn");
+const freeCallBtn = document.querySelector(".secondary-btn");
 
 const servicesSection = document.getElementById("services");
 const visionSection = document.getElementById("vision");
+const bookingSection = document.getElementById("booking");
+
+const timelineProgress = document.querySelector(".timeline-progress");
+const revealItems = document.querySelectorAll(
+  ".service-card, .glass-card, .timeline-item, .choose-card, .trust-card, .team-card, .compare-row"
+);
+
+const playButtons = document.querySelectorAll(".play-btn");
+const videos = document.querySelectorAll(".work-video");
+const navAnchors = document.querySelectorAll(".nav-links a");
+
 /* =========================
-   NAVBAR TOGGLE
+   MOBILE NAVBAR TOGGLE
 ========================= */
 if (menuBtn && navLinks) {
   menuBtn.addEventListener("click", () => {
@@ -21,61 +31,63 @@ if (menuBtn && navLinks) {
   });
 }
 
-/* =========================
-   SMOOTH SCROLL BUTTONS
-========================= */
-function smoothScrollToBooking() {
-  if (!bookingSection) return;
+/* close mobile nav after click */
+navAnchors.forEach((link) => {
+  link.addEventListener("click", () => {
+    if (navLinks) navLinks.classList.remove("active");
+  });
+});
 
-  bookingSection.scrollIntoView({
+/* =========================
+   SMOOTH SCROLL HELPER
+========================= */
+function smoothTo(target) {
+  if (!target) return;
+
+  target.scrollIntoView({
     behavior: "smooth",
     block: "start",
   });
 }
 
-if (bookBtn) {
-  bookBtn.addEventListener("click", smoothScrollToBooking);
-}
-
-if (freeCallBtn) {
-  freeCallBtn.addEventListener("click", smoothScrollToBooking);
-}
-/* =========================
-   NAV LINK SMOOTH SCROLL
-========================= */
-
+/* Services */
 if (servicesBtn && servicesSection) {
   servicesBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    servicesSection.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    smoothTo(servicesSection);
   });
 }
 
+/* About / Leadership */
 if (aboutBtn && visionSection) {
   aboutBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    visionSection.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    smoothTo(visionSection);
   });
 }
-/* =========================
-   SCROLL REVEAL CARDS
-========================= */
-const revealCards = document.querySelectorAll(
-  ".service-card, .glass-card, .choose-card, .trust-card, .compare-row, .team-card"
-);
 
+/* Book Call buttons */
+bookBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    smoothTo(bookingSection);
+  });
+});
+
+/* Free Call */
+if (freeCallBtn && bookingSection) {
+  freeCallBtn.addEventListener("click", () => {
+    smoothTo(bookingSection);
+  });
+}
+
+/* =========================
+   SCROLL REVEAL (INTERSECTION OBSERVER)
+========================= */
 const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = "1";
-        entry.target.style.transform = "translateY(0)";
+        entry.target.classList.add("show");
       }
     });
   },
@@ -84,94 +96,51 @@ const revealObserver = new IntersectionObserver(
   }
 );
 
-revealCards.forEach((card) => {
-  card.style.opacity = "0";
-  card.style.transform = "translateY(60px)";
-  card.style.transition = "0.7s ease";
-  revealObserver.observe(card);
+revealItems.forEach((item) => {
+  revealObserver.observe(item);
 });
 
 /* =========================
-   HOW WE WORK TIMELINE
+   TIMELINE PROGRESS GLOW
 ========================= */
-const timeline = document.querySelector(".timeline");
-const timelineProgress = document.getElementById("timelineProgress");
-const timelineItems = document.querySelectorAll(".timeline-item");
-
-function updateTimeline() {
+function updateTimelineProgress() {
+  const timeline = document.querySelector(".timeline");
   if (!timeline || !timelineProgress) return;
 
   const rect = timeline.getBoundingClientRect();
-  const windowHeight = window.innerHeight;
-  const totalHeight = timeline.offsetHeight;
+  const total = rect.height;
+  const visible = window.innerHeight - rect.top;
 
-  let progress = ((windowHeight - rect.top) / totalHeight) * 100;
-  progress = Math.max(0, Math.min(100, progress));
+  let progress = (visible / total) * 100;
 
-  timelineProgress.style.height = progress + "%";
+  progress = Math.max(0, Math.min(progress, 100));
 
-  timelineItems.forEach((item) => {
-    const top = item.getBoundingClientRect().top;
-    const dot = item.querySelector(".timeline-dot");
-
-    if (top < windowHeight - 120) {
-      item.classList.add("show");
-    }
-
-    if (dot) {
-      if (top < windowHeight / 2 && top > 0) {
-        dot.style.boxShadow = "0 0 40px rgba(0,255,180,.6)";
-        dot.style.transform = "translateX(-50%) scale(1.12)";
-      } else {
-        dot.style.boxShadow = "0 0 30px rgba(125,92,255,.45)";
-        dot.style.transform = "translateX(-50%) scale(1)";
-      }
-    }
-  });
+  timelineProgress.style.height = `${progress}%`;
 }
 
-window.addEventListener("scroll", updateTimeline);
-window.addEventListener("load", updateTimeline);
+window.addEventListener("scroll", updateTimelineProgress);
+window.addEventListener("load", updateTimelineProgress);
 
 /* =========================
-   OUR WORK VIDEO SYSTEM
+   VIDEO PLAY / PAUSE
+   only one video at a time
 ========================= */
-const workCards = document.querySelectorAll(".video-card");
+playButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const card = btn.closest(".video-card");
+    const video = card?.querySelector(".work-video");
+    if (!video) return;
 
-workCards.forEach((card) => {
-  const video = card.querySelector(".work-video");
-  const playBtn = card.querySelector(".play-btn");
-
-  if (!video || !playBtn) return;
-
-  playBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-
-    // baki sab video stop
-    workCards.forEach((otherCard) => {
-      const otherVideo = otherCard.querySelector(".work-video");
-
-      if (otherVideo && otherVideo !== video) {
-        otherVideo.pause();
-        otherVideo.currentTime = 0;
-        otherVideo.controls = false;
-        otherCard.classList.remove("playing");
+    /* pause all others */
+    videos.forEach((v) => {
+      if (v !== video) {
+        v.pause();
+        v.currentTime = 0;
+        v.closest(".video-card")?.classList.remove("playing");
       }
     });
 
-    // toggle current
-    if (video.paused) {
-      video.controls = true;
-      video.play();
-      card.classList.add("playing");
-    } else {
-      video.pause();
-      card.classList.remove("playing");
-    }
-  });
-
-  // video click = pause/play
-  video.addEventListener("click", () => {
+    /* toggle current */
     if (video.paused) {
       video.play();
       card.classList.add("playing");
@@ -180,83 +149,50 @@ workCards.forEach((card) => {
       card.classList.remove("playing");
     }
   });
+});
 
-  // end = reset
+/* reset after end */
+videos.forEach((video) => {
   video.addEventListener("ended", () => {
     video.currentTime = 0;
-    video.controls = false;
-    card.classList.remove("playing");
-  });
-
-  // pause manually
-  video.addEventListener("pause", () => {
-    if (!video.ended) {
-      card.classList.remove("playing");
-    }
+    video.closest(".video-card")?.classList.remove("playing");
   });
 });
 
 /* =========================
-   TEAM CARD 3D HOVER
+   TOUCH SAFE (disable hover tilt on mobile)
 ========================= */
-const teamCards = document.querySelectorAll(".team-card");
+const isMobile = window.innerWidth <= 768;
 
-teamCards.forEach((card) => {
-  const shape = card.querySelector(".rotating-shape");
+if (!isMobile) {
+  const cards = document.querySelectorAll(".team-card");
 
-  card.addEventListener("mousemove", (e) => {
-    const rect = card.getBoundingClientRect();
+  cards.forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
 
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+      const rotateX = -(y - rect.height / 2) / 18;
+      const rotateY = (x - rect.width / 2) / 18;
 
-    const rotateX = (y - centerY) / 30;
-    const rotateY = (centerX - x) / 30;
+      card.style.transform =
+        `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
 
-    card.style.transform = `
-      perspective(1000px)
-      rotateX(${rotateX}deg)
-      rotateY(${rotateY}deg)
-      translateY(-6px)
-    `;
-
-    if (shape) {
-      shape.style.transform = `
-        rotate(${(x / rect.width) * 360}deg)
-        scale(1.05)
-      `;
-    }
+    card.addEventListener("mouseleave", () => {
+      card.style.transform =
+        "perspective(900px) rotateX(0deg) rotateY(0deg)";
+    });
   });
-
-  card.addEventListener("mouseleave", () => {
-    card.style.transform = `
-      perspective(1000px)
-      rotateX(0deg)
-      rotateY(0deg)
-      translateY(0)
-    `;
-
-    if (shape) {
-      shape.style.transform = "rotate(45deg) scale(1)";
-    }
-  });
-});
+}
 
 /* =========================
-   SCROLL TO TOP (ADVANCE)
+   RESIZE FIX
 ========================= */
-window.addEventListener("scroll", () => {
-  const navbar = document.querySelector(".navbar");
-  if (!navbar) return;
-
-  if (window.scrollY > 50) {
-    navbar.style.backdropFilter = "blur(16px)";
-    navbar.style.background = "rgba(8,8,8,0.72)";
-  } else {
-    navbar.style.backdropFilter = "blur(10px)";
-    navbar.style.background = "rgba(138,151,149,0.35)";
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 768 && navLinks) {
+    navLinks.classList.remove("active");
   }
 });
