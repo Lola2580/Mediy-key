@@ -2144,3 +2144,267 @@ video {
     padding: 12px 18px;
   }
 }
+/* =========================
+   MOBILE COMPACT REDESIGN
+========================= */
+@media (max-width: 768px) {
+
+  /* NAVBAR compact */
+  .navbar{
+    width: 94%;
+    margin-left: 3%;
+    top: 10px;
+    padding: 10px 16px;
+    border-radius: 22px;
+  }
+
+  .logo{
+    gap: 8px;
+  }
+
+  .logo-circle{
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+  }
+
+  .logo h2{
+    font-size: 18px;
+  }
+
+  .menu-btn{
+    font-size: 24px;
+  }
+
+  /* hero compact */
+  .hero{
+    min-height: 88vh;
+    padding: 95px 5% 55px;
+  }
+
+  .badge{
+    padding: 8px 14px;
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .hero h1{
+    font-size: 30px !important;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .hero span{
+    font-size: 24px !important;
+  }
+
+  .hero p{
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  /* buttons compact */
+  .hero-buttons{
+    gap: 12px;
+  }
+
+  .primary-btn,
+  .secondary-btn,
+  .primary-btn2{
+    max-width: 230px;
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  /* sections less bulky */
+  .services,
+  .about,
+  .cta,
+  .why-choose,
+  .different-section,
+  .trust-section,
+  .vision-section,
+  .team-section,
+  .footer-section{
+    padding-top: 70px;
+    padding-bottom: 60px;
+  }
+
+  /* cards compact */
+  .service-card,
+  .choose-card,
+  .trust-card,
+  .compare-row,
+  .team-card,
+  .glass-card{
+    padding: 22px !important;
+    border-radius: 18px;
+    min-height: auto !important;
+  }
+
+  /* headings */
+  .services h2,
+  .about-left h2,
+  .cta h2,
+  .choose-header h2,
+  .different-header h2,
+  .trust-header h2,
+  .vision-header h2{
+    font-size: 32px !important;
+    line-height: 1.2;
+  }
+
+  .choose-header p,
+  .different-header p,
+  .trust-header p,
+  .vision-header p{
+    font-size: 15px !important;
+  }
+
+  /* icons smaller */
+  .choose-icon,
+  .trust-icon{
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+  }
+
+  /* our work videos */
+  .video-card{
+    border-radius: 18px;
+  }
+
+  .work-video{
+    border-radius: 16px;
+  }
+
+  .play-btn{
+    width: 56px;
+    height: 56px;
+    font-size: 18px;
+  }
+
+  /* compare rows text */
+  .compare-title{
+    font-size: 20px !important;
+  }
+
+  .compare-good,
+  .compare-bad{
+    font-size: 15px !important;
+  }
+
+  .tick,
+  .cross{
+    font-size: 18px;
+  }
+
+  /* team compact */
+  .img-wrap{
+    width: 130px;
+    height: 130px;
+    margin-bottom: 20px;
+  }
+
+  .rotating-shape{
+    width: 95px;
+    height: 95px;
+    border-radius: 18px;
+  }
+
+  .img-wrap img{
+    width: 118px;
+    height: 118px;
+    border-radius: 18px;
+  }
+
+  .ceo-badge{
+    font-size: 11px;
+    padding: 7px 14px;
+  }
+
+  .team-card h3{
+    font-size: 24px !important;
+    margin-bottom: 6px;
+  }
+
+  .team-card h4{
+    font-size: 15px !important;
+    margin-bottom: 18px;
+  }
+
+  .team-card h4::before,
+  .team-card h4::after{
+    width: 32px;
+  }
+
+  .team-card p{
+    font-size: 14px !important;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  /* social icons */
+  .socials a{
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+
+  /* footer compact */
+  .footer-box h2{
+    font-size: 26px !important;
+  }
+
+  .footer-box h3{
+    font-size: 18px !important;
+    margin-bottom: 14px;
+  }
+
+  .footer-box p,
+  .footer-box ul li a,
+  .footer-mail{
+    font-size: 14px !important;
+    line-height: 1.6;
+  }
+
+  .footer-bottom p,
+  .footer-links a{
+    font-size: 12px !important;
+  }
+
+  /* mobile pe heavy hover effects off */
+  .team-card:hover,
+  .choose-card:hover,
+  .trust-card:hover,
+  .service-card:hover,
+  .compare-row:hover{
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* EXTRA SMALL (360-430px phones) */
+@media (max-width: 430px){
+  .hero h1{
+    font-size: 26px !important;
+  }
+
+  .hero span{
+    font-size: 21px !important;
+  }
+
+  .primary-btn,
+  .secondary-btn{
+    max-width: 100%;
+  }
+
+  .team-card h3{
+    font-size: 22px !important;
+  }
+}
